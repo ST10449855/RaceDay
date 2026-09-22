@@ -42,3 +42,9 @@
 
 ## Video Walkthrough Presentation
 * **YouTube Video Link:** [Insert Unlisted YouTube Link Here]
+
+---
+
+## References
+
+* GeeksforGeeks. (2026). *C# Programming Language Resources & Tutorials*. Available at: https://www.geeksforgeeks.org/search/?gq=C (Accessed: 22 September 2026).
