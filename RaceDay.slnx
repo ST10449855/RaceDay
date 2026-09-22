@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/.github/" />
+  <Folder Name="/.github/workflows/">
+    <File Path="validate-docs.yml" />
+  </Folder>
+  <Folder Name="/docs/">
+    <File Path="endpoint-plan.md" />
+    <File Path="schema.sql" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".gitignore" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="RaceDay/RaceDay.csproj" />
+</Solution>
