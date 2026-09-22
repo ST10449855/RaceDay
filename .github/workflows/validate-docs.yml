@@ -1,0 +1,36 @@
+name: Validate Documentation Structure
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Verify /docs Folder and Required Files
+        run: |
+          echo "Checking directory structure for POE Part 1..."
+          
+          if [ ! -d "docs" ]; then
+            echo "::error:: The /docs directory does not exist!"
+            exit 1
+          fi
+
+          if [ ! -f "docs/schema.sql" ]; then
+            echo "::error:: docs/schema.sql is missing!"
+            exit 1
+          fi
+
+          if [ ! -f "docs/endpoint-plan.md" ]; then
+            echo "::error:: docs/endpoint-plan.md is missing!"
+            exit 1
+          fi
+
+          echo "All required files in /docs verified successfully!"
