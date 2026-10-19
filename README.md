@@ -37,7 +37,8 @@
 
 ## CI/CD Pipeline Status
 ![CI Validation Workflow](https://github.com/ST10449855/RaceDay/actions/workflows/validate-docs.yml/badge.svg)
-
+## CI/CD
+![Green GitHub Actions Build](./docs/ci-success.png)
 ---
 
 ## Video Walkthrough Presentation
