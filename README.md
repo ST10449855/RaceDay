@@ -82,3 +82,5 @@ The **RaceDay** API is built using ASP.NET Core Web API (.NET 8) and Entity Fram
 <!-- update log entry 5 -->
 
 <!-- update log entry 6 -->
+
+<!-- update log entry 7 -->
