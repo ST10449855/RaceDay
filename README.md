@@ -47,20 +47,24 @@
 # RaceDay System - Part 2: RESTful API Development
 
 ## Student Information
-* **Name**: Aphiwe Njabulo Ndlovu
-* **Student ID**: ST10449855
-* **Module**: Programming 2B (PROG6212)
+- **Name**: Aphiwe Njabulo Ndlovu
+- **Student ID**: ST10449855
+- **Module**: Programming 2B (PROG6212)
 
 ---
 
-## System Overview & Roles
-The **RaceDay** API is built using ASP.NET Core Web API (.NET 8) and Entity Framework Core with Code First migrations. It implements role-based session authentication for two distinct user roles:
-1. **Organiser**: Can create, update, and delete events, define categories, view enrolments, and capture race results.
-2. **Participant**: Can view upcoming events, register/log in, enrol in specific event categories, and view personal results.
+## Overview
+The **RaceDay** API is built using ASP.NET Core Web API (.NET 8) and Entity Framework Core with Code First migrations. It handles core data persistence, enforces server-side session authentication, and manages strict role-based access control.
 
 ---
 
-## Setup and Run Instructions
+## Roles
+1. **Organiser**: Can create, update, and delete events, define age and distance categories, view all event enrolments, and capture runner finish times and positions.
+2. **Participant**: Can view upcoming events, register and log in, enrol in specific event categories, and view personal results.
+
+---
+
+## Setup and Run
 1. Clone the repository and open the solution in Visual Studio.
 2. Ensure your `appsettings.json` file points to your local SQL Server instance:
    ```json
