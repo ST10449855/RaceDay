@@ -67,7 +67,10 @@ The **RaceDay** API is built using ASP.NET Core Web API (.NET 8) and Entity Fram
 ![Green GitHub Actions Build](./docs/ci-success.png)
 
 ---
+## Unit Testing
+![Unit Testing Results](./docs/unit-test-success.png)
 
+---
 ## Setup and Run
 1. Clone the repository and open the solution in Visual Studio.
 2. Ensure your `appsettings.json` file points to your local SQL Server instance:
