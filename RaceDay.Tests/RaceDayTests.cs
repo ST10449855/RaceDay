@@ -1,9 +1,10 @@
-﻿using Xunit;
-using Microsoft.EntityFrameworkCore;
-using RaceDay.API.Data;
-using RaceDay.API.Controllers;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using RaceDay.API.Attributes;
+using RaceDay.API.Controllers;
+using RaceDay.API.Data;
+using Xunit;
 
 namespace RaceDay.Tests
 {
@@ -101,30 +102,28 @@ namespace RaceDay.Tests
             Assert.IsType<CreatedAtActionResult>(result);
             Assert.Equal(1, await db.Events.CountAsync());
         }
-
         [Fact]
         public async Task CreateEvent_AsParticipant_ReturnsForbidden()
         {
-            var db = GetInMemoryDbContext();
-            var controller = new EventsController(db)
+            var controllerContext = new ControllerContext
             {
-                ControllerContext = new ControllerContext
-                {
-                    HttpContext = GetMockHttpContext(2, "Participant") // Participant role attempting organiser action
-                }
+                HttpContext = GetMockHttpContext(2, "Participant"),
+                RouteData = new Microsoft.AspNetCore.Routing.RouteData(),
+                ActionDescriptor = new Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor()
             };
 
-            var evtDto = new EventCreateDto
-            {
-                Name = "Unauthorized Event",
-                DistanceKm = 5.0
-            };
+            var filter = new RequireRoleAttribute("Organiser");
+            var authContext = new Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext(
+                controllerContext,
+                new List<Microsoft.AspNetCore.Mvc.Filters.IFilterMetadata>()
+            );
 
-            var result = await controller.Create(evtDto);
+            filter.OnAuthorization(authContext);
 
-            var objectResult = Assert.IsType<ObjectResult>(result);
-            Assert.Equal(403, objectResult.StatusCode); // Verify role enforcement rejection
+            var objectResult = Assert.IsType<ObjectResult>(authContext.Result);
+            Assert.Equal(403, objectResult.StatusCode);
         }
+        
 
         [Fact]
         public async Task Enrol_AsParticipant_Succeeds()
@@ -134,7 +133,7 @@ namespace RaceDay.Tests
             // Seed a category
             var eventObj = new Event { Name = "Test Run", Location = "JHB", DistanceKm = 5 };
             db.Events.Add(eventObj);
-            db.Categories.Add(new Category { Name = "Open", MinAge = 18, MaxAge = 99, Event = eventObj });
+            db.Categories.Add(new Category { Name = "Open", MinAge = 18, MaxAge = 99, EventId = eventObj.Id });
             await db.SaveChangesAsync();
 
             var controller = new EnrolmentsController(db)
