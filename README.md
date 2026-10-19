@@ -78,6 +78,11 @@ The **RaceDay** API is built using ASP.NET Core Web API (.NET 8) and Entity Fram
    "ConnectionStrings": {
      "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=RaceDayDb;Trusted_Connection=True;MultipleActiveResultSets=true"
    }
+
+ ---
+
+## Video Walkthrough Presentation
+* **YouTube Video Link:** https://youtu.be/g47aQ78Aqyg?si=7iiJN59WZis4FwLn
 ## References
 
 * GeeksforGeeks. (2026). *C# Programming Language Resources & Tutorials*. Available at: https://www.geeksforgeeks.org/search/?gq=C (Accessed: 22 September 2026).
