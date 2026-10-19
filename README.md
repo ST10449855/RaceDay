@@ -37,8 +37,7 @@
 
 ## CI/CD Pipeline Status
 ![CI Validation Workflow](https://github.com/ST10449855/RaceDay/actions/workflows/validate-docs.yml/badge.svg)
-## CI/CD
-![Green GitHub Actions Build](./docs/ci-success.png)
+
 ---
 
 ## Video Walkthrough Presentation
@@ -62,6 +61,10 @@ The **RaceDay** API is built using ASP.NET Core Web API (.NET 8) and Entity Fram
 ## Roles
 1. **Organiser**: Can create, update, and delete events, define age and distance categories, view all event enrolments, and capture runner finish times and positions.
 2. **Participant**: Can view upcoming events, register and log in, enrol in specific event categories, and view personal results.
+
+---
+## CI/CD
+![Green GitHub Actions Build](./docs/ci-success.png)
 
 ---
 
