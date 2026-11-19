@@ -1,0 +1,54 @@
+﻿@model RaceDay.Web.Controllers.RegisterViewModel
+@{
+    ViewData["Title"] = "Register - RaceDay";
+}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-5">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <h2 class="fw-bold mb-1">Join RaceDay</h2>
+                <p class="text-muted mb-4">Register as a Participant or Race Organiser.</p>
+
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <form asp-action="Register" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label fw-semibold"></label>
+                        <input asp-for="Name" class="form-control" placeholder="Full Name" />
+                        <span asp-validation-for="Name" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label fw-semibold"></label>
+                        <input asp-for="Email" class="form-control" placeholder="name@example.com" />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label fw-semibold"></label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Role" class="form-label fw-semibold">Account Role</label>
+                        <select asp-for="Role" class="form-select">
+                            <option value="1">Participant (Athlete)</option>
+                            <option value="0">Organiser (Event Host)</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">Create Account</button>
+                </form>
+
+                <hr class="my-4" />
+                <p class="text-center mb-0 small">
+                    Already have an account? <a asp-action="Login" class="fw-semibold">Sign in</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

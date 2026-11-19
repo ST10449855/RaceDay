@@ -13,5 +13,6 @@
     <File Path="README.md" />
   </Folder>
   <Project Path="RaceDay.Tests/RaceDay.Tests.csproj" />
+  <Project Path="RaceDay.Web/RaceDay.Web.csproj" />
   <Project Path="RaceDay/RaceDay.csproj" />
 </Solution>
