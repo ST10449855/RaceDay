@@ -1,0 +1,76 @@
+﻿@model RaceDay.Web.Controllers.EventFormViewModel
+@{
+    ViewData["Title"] = "Edit Event";
+}
+
+<h2 class="fw-bold mb-3">Edit Event</h2>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+        <form asp-action="EditEvent" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label asp-for="Name" class="form-label fw-semibold"></label>
+                    <input asp-for="Name" class="form-control" />
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="Location" class="form-label fw-semibold"></label>
+                    <input asp-for="Location" class="form-control" />
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="Date" class="form-label fw-semibold"></label>
+                    <input asp-for="Date" type="datetime-local" class="form-control" />
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="DistanceKm" class="form-label fw-semibold">Distance (km)</label>
+                    <input asp-for="DistanceKm" type="number" step="0.1" class="form-control" />
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="Type" class="form-label fw-semibold">Event Type</label>
+                    <select asp-for="Type" class="form-select">
+                        <option value="0">Run</option>
+                        <option value="1">Walk</option>
+                        <option value="2">Cycle</option>
+                    </select>
+                </div>
+
+                <div class="col-12">
+                    <label asp-for="Description" class="form-label fw-semibold"></label>
+                    <textarea asp-for="Description" rows="3" class="form-control"></textarea>
+                </div>
+
+                @if (!string.IsNullOrWhiteSpace(Model.BannerUrl))
+                {
+                    <div class="col-12">
+                        <label class="form-label fw-semibold d-block">Current Banner</label>
+                        <img src="@Model.BannerUrl" alt="Current Banner" class="img-thumbnail" style="max-height: 150px;" />
+                    </div>
+                }
+
+                <div class="col-md-6">
+                    <label asp-for="BannerFile" class="form-label fw-semibold">Replace Banner Image</label>
+                    <input asp-for="BannerFile" type="file" accept=".jpg,.jpeg,.png,.webp" class="form-control" />
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="BannerUrl" class="form-label fw-semibold">Banner URL</label>
+                    <input asp-for="BannerUrl" class="form-control" />
+                </div>
+            </div>
+
+            <div class="mt-4 d-flex gap-2">
+                <button type="submit" class="btn btn-primary fw-semibold">Save Changes</button>
+                <a asp-action="Events" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

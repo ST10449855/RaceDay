@@ -1,0 +1,85 @@
+﻿@model RaceDay.Web.Controllers.ManageCategoriesViewModel
+@{
+    ViewData["Title"] = "Manage Categories";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h2 class="fw-bold mb-0">Categories — @Model.EventName</h2>
+        <p class="text-muted mb-0">Configure age groups or distance categories for this event.</p>
+    </div>
+    <a asp-action="Events" class="btn btn-outline-secondary">Back to Events</a>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<div class="row g-4">
+    <div class="col-md-5">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h5 class="fw-bold mb-3">Add Category</h5>
+                <form asp-action="AddCategory" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="NewCategory.EventId" value="@Model.EventId" />
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Category Name</label>
+                        <input type="text" name="NewCategory.Name" class="form-control" placeholder="e.g., 10km Open / Junior U19" required />
+                    </div>
+
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <label class="form-label fw-semibold">Min Age</label>
+                            <input type="number" name="NewCategory.MinAge" value="18" min="0" max="120" class="form-control" required />
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label fw-semibold">Max Age</label>
+                            <input type="number" name="NewCategory.MaxAge" value="99" min="0" max="120" class="form-control" required />
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 fw-semibold">Add Category</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h5 class="fw-bold mb-3">Existing Categories</h5>
+                @if (!Model.Categories.Any())
+                {
+                    <p class="text-muted mb-0">No categories added yet.</p>
+                }
+                else
+                {
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Name</th>
+                                <th>Age Range</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var cat in Model.Categories)
+                            {
+                                <tr>
+                                    <td class="fw-semibold">@cat.Name</td>
+                                    <td>@cat.MinAge – @cat.MaxAge yrs</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</div>

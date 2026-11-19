@@ -1,0 +1,54 @@
+﻿@model RaceDay.Web.Controllers.EventEnrolmentsViewModel
+@{
+    ViewData["Title"] = "Event Enrolments";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h2 class="fw-bold mb-0">Enrolments — @Model.EventName</h2>
+        <p class="text-muted mb-0">Participants registered for this event and their selected categories.</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a asp-action="Results" asp-route-id="@Model.EventId" class="btn btn-success fw-semibold">Enter Results</a>
+        <a asp-action="Events" class="btn btn-outline-secondary">Back to Events</a>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        @if (!Model.Enrolments.Any())
+        {
+            <p class="text-muted mb-0">No participants have enrolled in this event yet.</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Participant</th>
+                            <th>Email</th>
+                            <th>Category</th>
+                            <th>Enrolled Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var enr in Model.Enrolments)
+                        {
+                            var statusText = enr.HasResult ? "Completed" : "Confirmed";
+                            var badgeClass = enr.HasResult ? "bg-success" : "bg-warning text-dark";
+                            <tr>
+                                <td class="fw-semibold">@enr.ParticipantName</td>
+                                <td>@enr.ParticipantEmail</td>
+                                <td>@enr.CategoryName</td>
+                                <td>@enr.EnrolledAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+                                <td><span class="badge @badgeClass">@statusText</span></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
