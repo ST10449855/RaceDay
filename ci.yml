@@ -1,8 +1,8 @@
-name: RaceDay API CI/CD Pipeline
+name: RaceDay CI
 
 on:
   push:
-    branches: [ "main", "dev", "part2" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -11,18 +11,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 8.0.x
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
 
-    - name: Restore dependencies
-      run: dotnet restore
+      - name: Restore dependencies
+        run: dotnet restore RaceDay.slnx
 
-    - name: Build Solution
-      run: dotnet build --no-restore --configuration Release
+      - name: Build solution
+        run: dotnet build RaceDay.slnx --no-restore --configuration Release
 
-    - name: Run Unit Tests
-      run: dotnet test --no-build --verbosity normal
+      - name: Run tests
+        run: dotnet test RaceDay.slnx --no-build --configuration Release
+
+      - name: Verify RaceDay.Web Docker build
+        run: docker build -f RaceDay.Web/Dockerfile -t raceday-web:ci .
