@@ -1,0 +1,23 @@
+﻿@'
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR /src
+
+COPY ["RaceDay.Web/RaceDay.Web.csproj", "RaceDay.Web/"]
+RUN dotnet restore "RaceDay.Web/RaceDay.Web.csproj"
+
+COPY ["RaceDay.Web/", "RaceDay.Web/"]
+WORKDIR "/src/RaceDay.Web"
+RUN dotnet publish "RaceDay.Web.csproj" -c Release -o /app/publish /p:UseAppHost=false
+
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
+WORKDIR /app
+
+ENV ASPNETCORE_URLS=http://+:8080
+ENV ASPNETCORE_ENVIRONMENT=Development
+EXPOSE 8080
+
+COPY --from=build /app/publish .
+ENTRYPOINT ["dotnet", "RaceDay.Web.dll"]
+'@ | Out-File -FilePath RaceDay.Web\Dockerfile -Encoding utf8
+
+docker build -f RaceDay.Web\Dockerfile -t raceday-web .
