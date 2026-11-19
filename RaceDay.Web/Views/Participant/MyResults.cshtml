@@ -1,0 +1,46 @@
+﻿@model List<RaceDay.Web.Controllers.ParticipantResultItem>
+@{
+    ViewData["Title"] = "My Results";
+}
+
+<div class="mb-4">
+    <h2 class="fw-bold mb-0">My Race Results</h2>
+    <p class="text-muted mb-0">Official finish times and standings across your completed events.</p>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        @if (!Model.Any())
+        {
+            <p class="text-muted mb-0">No race results have been published for your completed events yet.</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Event</th>
+                            <th>Date</th>
+                            <th>Category</th>
+                            <th>Finish Time</th>
+                            <th>Finishing Position</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var res in Model)
+                        {
+                            <tr>
+                                <td class="fw-semibold">@res.EventName</td>
+                                <td>@res.EventDate.ToString("yyyy-MM-dd")</td>
+                                <td>@res.CategoryName</td>
+                                <td><span class="badge bg-dark fs-6">@res.FinishTime.ToString(@"hh\:mm\:ss")</span></td>
+                                <td class="fw-semibold text-success">@res.FormattedRank</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

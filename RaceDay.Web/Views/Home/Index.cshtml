@@ -1,8 +1,93 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model RaceDay.Web.Controllers.EventBrowseViewModel
+@{
+    ViewData["Title"] = "Upcoming Events";
+    string TypeLabel(int t) => t switch { 0 => "Run", 1 => "Walk", 2 => "Cycle", _ => "Event" };
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="p-4 p-md-5 mb-4 rounded-3 bg-dark text-white shadow-sm">
+    <div class="col-lg-8">
+        <h1 class="display-5 fw-bold text-warning">Find Your Next Finish Line</h1>
+        <p class="lead mb-0">Browse official road runs, community walks, and cycling races across South Africa. Filter by discipline and enter online in seconds.</p>
+    </div>
 </div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+        <form method="get" asp-action="Index" class="row g-3 align-items-end">
+            <div class="col-md-5">
+                <label class="form-label fw-semibold">Search Event or City</label>
+                <input type="text" name="search" value="@Model.Search" class="form-control" placeholder="e.g., Johannesburg, Marathon, Cape Town..." />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label fw-semibold">Event Type</label>
+                <select name="type" class="form-select">
+                    <option value="">All Disciplines</option>
+                    <option value="0" selected="@(Model.SelectedType == 0)">Run</option>
+                    <option value="1" selected="@(Model.SelectedType == 1)">Walk</option>
+                    <option value="2" selected="@(Model.SelectedType == 2)">Cycle</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" name="showPast" value="true" id="showPastCheck" checked="@Model.ShowPast" />
+                    <label class="form-check-label" for="showPastCheck">Include past events</label>
+                </div>
+            </div>
+            <div class="col-md-2 d-flex gap-2">
+                <button type="submit" class="btn btn-primary w-100 fw-semibold">Filter</button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Reset</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@if (!Model.Events.Any())
+{
+    <div class="alert alert-info">No events matched your filter criteria. Try resetting your filters or check back soon!</div>
+}
+else
+{
+    <div class="row g-4">
+        @foreach (var evt in Model.Events)
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    @if (!string.IsNullOrWhiteSpace(evt.BannerUrl))
+                    {
+                        <img src="@evt.BannerUrl" class="card-img-top" alt="@evt.Name" style="height: 180px; object-fit: cover;" />
+                    }
+                    else
+                    {
+                        <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 180px;">
+                            <span class="fw-bold fs-5">@TypeLabel(evt.Type) • @evt.DistanceKm km</span>
+                        </div>
+                    }
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge bg-warning text-dark fw-semibold">@TypeLabel(evt.Type)</span>
+                            <span class="text-muted small fw-semibold">@evt.DistanceKm km</span>
+                        </div>
+                        <h5 class="card-title fw-bold">@evt.Name</h5>
+                        <p class="text-muted small mb-2">
+                            <strong>Date:</strong> @evt.Date.ToString("ddd, dd MMM yyyy • HH:mm")<br />
+                            <strong>Location:</strong> @evt.Location
+                        </p>
+                        <p class="card-text small text-secondary flex-grow-1">
+                            @(evt.Description.Length > 110 ? evt.Description[..110] + "..." : evt.Description)
+                        </p>
+                        <a asp-action="Details" asp-route-id="@evt.Id" class="btn btn-dark w-100 mt-2 fw-semibold">View Event &amp; Enter</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

@@ -1,0 +1,64 @@
+﻿@model List<RaceDay.Web.Controllers.ParticipantEnrolmentItem>
+@{
+    ViewData["Title"] = "My Events";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold mb-0">My Enrolled Events</h2>
+        <p class="text-muted mb-0">Track all events you have entered and your current enrolment status.</p>
+    </div>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary fw-semibold">Browse More Events</a>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        @if (!Model.Any())
+        {
+            <p class="text-muted mb-0">You haven't enrolled in any events yet. Explore upcoming races on the <a asp-controller="Home" asp-action="Index">Events page</a>.</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Event</th>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>Category</th>
+                            <th>Enrolled On</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            var isCompleted = string.Equals(item.Status, "Completed", StringComparison.OrdinalIgnoreCase);
+                            var badgeClass = isCompleted ? "bg-success" : "bg-warning text-dark";
+                            <tr>
+                                <td class="fw-semibold">
+                                    <a asp-controller="Home" asp-action="Details" asp-route-id="@item.EventId" class="text-decoration-none">@item.EventName</a>
+                                </td>
+                                <td>@item.EventDate.ToString("yyyy-MM-dd HH:mm")</td>
+                                <td>@item.EventLocation</td>
+                                <td>@item.CategoryName</td>
+                                <td>@item.EnrolledAt.ToLocalTime().ToString("yyyy-MM-dd")</td>
+                                <td><span class="badge @badgeClass">@item.Status</span></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
