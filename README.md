@@ -121,6 +121,30 @@ The **RaceDay** API is built using ASP.NET Core Web API (.NET 8) and Entity Fram
 # RaceDay System - Part 3: Web Application, Docker & Azure Blob Storage
 
 ---
+
+## Docker Containers
+![Docker Desktop Containers](./Screenshot%202026-11-20%20153228.png)
+
+---
+
+## RaceDay API (Swagger UI)
+![RaceDay API Swagger UI](./Screenshot%202026-11-20%20153210.png)
+
+---
+
+## RaceDay Web Home Page
+![RaceDay Web Home Page](./Screenshot%202026-11-20%20151651.png)
+
+---
+
+## Profile Image Selection (Blob Storage Upload)
+![Selecting Profile Picture](./Screenshot%202026-11-20%20151721.png)
+
+---
+
+## Profile Updated Successfully
+![Profile Updated Successfully](./Screenshot%202026-11-20%20152651.png)
+---
 # RaceDay System - Part 3: Web Application, Docker & Azure Blob Storage
 
 ## Overview
