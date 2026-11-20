@@ -7,15 +7,15 @@
 
 ## Roles & Permissions
 
-* **Organiser:**
-  * Create, manage, and update race events.
-  * Define event categories, distances, and entry fees.
-  * Capture participant completion times and race rankings.
+- **Organiser:**
+  - Create, manage, and update race events.
+  - Define event categories, distances, and entry fees.
+  - Capture participant completion times and race rankings.
 
-* **Participant:**
-  * Search and view upcoming events and categories.
-  * Enrol in race events.
-  * View personal enrolment history and finish times.
+- **Participant:**
+  - Search and view upcoming events and categories.
+  - Enrol in race events.
+  - View personal enrolment history and finish times.
 
 ---
 
@@ -29,9 +29,9 @@
 
 ## Repository Documentation (`/docs`)
 
-* **ERD Diagram:** `docs/erd.png`
-* **API Endpoint Plan:** `docs/endpoint-plan.md`
-* **Database Schema Script:** `docs/schema.sql`
+- **ERD Diagram:** `docs/erd.png`
+- **API Endpoint Plan:** `docs/endpoint-plan.md`
+- **Database Schema Script:** `docs/schema.sql`
 
 ---
 
@@ -41,7 +41,7 @@
 ---
 
 ## Video Walkthrough Presentation
-* **YouTube Video Link:** [https://youtu.be/rPWAnsolIbM?si=jA6RbvMuxrdhJAod](https://youtu.be/rPWAnsolIbM?si=jA6RbvMuxrdhJAod)
+- **YouTube Video Link:** [https://youtu.be/rPWAnsolIbM?si=jA6RbvMuxrdhJAod](https://youtu.be/rPWAnsolIbM?si=jA6RbvMuxrdhJAod)
 
 ---
 # RaceDay System - Part 2: RESTful API Development
@@ -82,10 +82,10 @@ The **RaceDay** API is built using ASP.NET Core Web API (.NET 8) and Entity Fram
  ---
 
 ## Video Walkthrough Presentation
-* **YouTube Video Link:** https://youtu.be/g47aQ78Aqyg?si=7iiJN59WZis4FwLn
+- **YouTube Video Link:** [https://youtu.be/g47aQ78Aqyg?si=7iiJN59WZis4FwLn](https://youtu.be/g47aQ78Aqyg?si=7iiJN59WZis4FwLn)
 ## References
 
-* GeeksforGeeks. (2026). *C# Programming Language Resources & Tutorials*. Available at: https://www.geeksforgeeks.org/search/?gq=C (Accessed: 22 September 2026).
+- GeeksforGeeks. (2026). *C# Programming Language Resources & Tutorials*. Available at: [https://www.geeksforgeeks.org/search/?gq=C](https://www.geeksforgeeks.org/search/?gq=C) (Accessed: 22 September 2026).
 
 <!-- update log entry 1 -->
 
@@ -116,3 +116,20 @@ The **RaceDay** API is built using ASP.NET Core Web API (.NET 8) and Entity Fram
 <!-- update log entry 14 -->
 
 <!-- update log entry 15 -->
+
+---
+# RaceDay System - Part 3: Web Application, Docker & Azure Blob Storage
+
+## Overview
+Part 3 connects the **RaceDay.Web** ASP.NET Core MVC front end (running in Docker container `raceday-web-app` on `http://localhost:8080`) to the **RaceDay** API (`http://localhost:5198` / `https://localhost:7015`), and integrates **Azure Blob Storage** (running via the **Azurite** container on port `10000`) for profile picture and event banner uploads.
+
+---
+
+## Blob Storage Configuration (`RaceDay/appsettings.json`)
+Configure the `AzureBlobStorage` section in `RaceDay/appsettings.json`:
+
+```json
+"AzureBlobStorage": {
+  "ConnectionString": "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;",
+  "ContainerName": "raceday-media"
+}
