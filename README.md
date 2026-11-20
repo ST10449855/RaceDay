@@ -120,6 +120,9 @@ The **RaceDay** API is built using ASP.NET Core Web API (.NET 8) and Entity Fram
 ---
 # RaceDay System - Part 3: Web Application, Docker & Azure Blob Storage
 
+---
+# RaceDay System - Part 3: Web Application, Docker & Azure Blob Storage
+
 ## Overview
 Part 3 connects the **RaceDay.Web** ASP.NET Core MVC front end (running in Docker container `raceday-web-app` on `http://localhost:8080`) to the **RaceDay** API (`http://localhost:5198` / `https://localhost:7015`), and integrates **Azure Blob Storage** (running via the **Azurite** container on port `10000`) for profile picture and event banner uploads.
 
@@ -130,6 +133,6 @@ Configure the `AzureBlobStorage` section in `RaceDay/appsettings.json`:
 
 ```json
 "AzureBlobStorage": {
-  "ConnectionString": "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;",
+  "ConnectionString": "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=[http://127.0.0.1:10000/devstoreaccount1](http://127.0.0.1:10000/devstoreaccount1);",
   "ContainerName": "raceday-media"
 }
